@@ -17,10 +17,18 @@
 package com.example.android.dagger
 
 import android.app.Application
+import com.example.android.dagger.login.di.AppComponent
+import com.example.android.dagger.login.di.DaggerAppComponent
 import com.example.android.dagger.storage.SharedPreferencesStorage
 import com.example.android.dagger.user.UserManager
 
 open class MyApplication : Application() {
+
+    // AppComponent(Dagger Graph)를 applicationContext 이용하여
+    // 모든 액티비티 또는 프래그먼트에서 사용 가능토록 지정!
+    val appComponent: AppComponent by lazy {
+        DaggerAppComponent.factory().create(applicationContext)
+    }
 
     open val userManager by lazy {
         UserManager(SharedPreferencesStorage(this))
