@@ -18,6 +18,7 @@ package com.example.android.dagger.user
 
 import com.example.android.dagger.storage.Storage
 import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val REGISTERED_USER = "registered_user"
 private const val PASSWORD_SUFFIX = "password"
@@ -26,6 +27,7 @@ private const val PASSWORD_SUFFIX = "password"
  * Handles User lifecycle. Manages registrations, logs in and logs out.
  * Knows when the user is logged in.
  */
+@Singleton
 // @Inject 어노테이션은 Dagger에게 Usermanager 인스턴스를 어떻게 제공해야 하는지 알려준다.
 class UserManager @Inject constructor (private val storage: Storage) {
 
