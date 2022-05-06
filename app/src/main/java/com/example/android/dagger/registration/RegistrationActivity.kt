@@ -21,6 +21,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
+import com.example.android.dagger.login.di.RegistrationComponent
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.enterdetails.EnterDetailsFragment
 import com.example.android.dagger.registration.termsandconditions.TermsAndConditionsFragment
@@ -30,12 +31,18 @@ class RegistrationActivity : AppCompatActivity() {
 
     @Inject
     lateinit var registrationViewModel: RegistrationViewModel
+    lateinit var registrationComponent: RegistrationComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_registration)
         // super.onCreate 전에 inject 되어야 한다. 추후 Fragment 관련되어 문제가 발생할 수 있음.
         // Dagger에게 최종적으로 의존성을 주입하라고 요청을 보내는 부분
-        (application as MyApplication).appComponent.inject(this)
+        // RegistrationComponent 인스턴스가 ActivityScope으로 만들어지면서 사라지게 된다.
+        // (application as MyApplication).appComponent.inject(this)
+
+        // 위 주석처리 부분이 사라지면서 registrationComponent는 아래와 같이 초기화 된다.
+        registrationComponent = (application as MyApplication).appComponent.registrationComponents().create()
+        registrationComponent.inject(this)
         super.onCreate(savedInstanceState)
 
 

@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
      * else carry on with MainActivity
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+        // 액티비티에서는 super.onCreate 이후에 Dagger inject 해야한다.
         (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
 
