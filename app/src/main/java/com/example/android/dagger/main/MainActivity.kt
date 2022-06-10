@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, RegistrationActivity::class.java))
                 finish()
             } else {
+                println()
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
